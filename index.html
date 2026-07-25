@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Para la princesa que estoy conociendo</title>
+<style>
+  :root{
+    --tulip-deep: #6b3fa0;
+    --tulip-mid: #9b6bd6;
+    --tulip-light: #c9a8f0;
+    --leaf: #3f7a4e;
+    --leaf-dark: #2c5636;
+    --paper: #e8c9a0;
+    --paper-dark: #d1a877;
+    --ribbon: #f0d9ee;
+    --sky-top: #05040d;
+    --sky-bottom: #100a24;
+    --text-glow: #f3e9ff;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin:0; padding:0; width:100%; height:100%;
+    background: #000;
+    overflow: hidden;
+    font-family: 'Georgia', 'Times New Roman', serif;
+  }
+
+  .stage{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 640px;
+    background: radial-gradient(ellipse at 50% 20%, var(--sky-bottom) 0%, var(--sky-top) 65%);
+    overflow: hidden;
+  }
+
+  /* stars */
+  .star{
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: twinkle 3s ease-in-out infinite;
+  }
+  @keyframes twinkle{
+    0%, 100% { opacity: 0.25; }
+    50% { opacity: 1; }
+  }
+
+  .shooting-star{
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: linear-gradient(270deg, #fff, rgba(255,255,255,0));
+    border-radius: 50%;
+    filter: drop-shadow(0 0 6px #fff);
+    animation: shoot 6s linear infinite;
+    animation-delay: 3s;
+  }
+  .shooting-star::before{
+    content:'';
+    position: absolute;
+    top: 0; right: 0;
+    width: 90px;
+    height: 1.5px;
+    background: linear-gradient(270deg, #fff, rgba(255,255,255,0));
+    transform: translateY(-50%);
+  }
+  @keyframes shoot{
+    0% { transform: translate(0,0); opacity: 0; }
+    2% { opacity: 1; }
+    18% { transform: translate(-260px, 160px); opacity: 0; }
+    100% { transform: translate(-260px, 160px); opacity: 0; }
+  }
+
+  /* message */
+  .message-wrap{
+    position: absolute;
+    top: 6%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 86%;
+    max-width: 480px;
+    text-align: center;
+    z-index: 5;
+  }
+
+  .message-line{
+    color: var(--text-glow);
+    font-size: clamp(15px, 4.4vw, 21px);
+    line-height: 1.55;
+    text-shadow: 0 0 12px rgba(201, 168, 240, 0.75), 0 0 2px #fff;
+    opacity: 0;
+    letter-spacing: 0.2px;
+    white-space: pre-wrap;
+    margin: 0 0 4px 0;
+  }
+
+  .cursor{
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background: var(--text-glow);
+    margin-left: 2px;
+    vertical-align: middle;
+    animation: blink 0.9s steps(1) infinite;
+  }
+
+  @keyframes blink{
+    0%, 50% { opacity: 1; }
+    50.01%, 100% { opacity: 0; }
+  }
+
+  .heart{
+    display: inline-block;
+    animation: pulse 1.4s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.25); }
+  }
+
+  /* bouquet */
+  .bouquet-wrap{
+    position: absolute;
+    bottom: 11%;
+    left: 50%;
+    transform: translateX(-50%) translateY(40px) scale(0.78);
+    width: min(78%, 340px);
+    opacity: 0;
+    filter: drop-shadow(0 -10px 60px rgba(180, 130, 230, 0.35));
+    animation: riseIn 1.6s ease-out forwards;
+    animation-delay: 0.4s;
+  }
+
+  @keyframes riseIn{
+    to{
+      opacity: 1;
+      transform: translateX(-50%) translateY(0) scale(1);
+    }
+  }
+
+  .stem{
+    transform-box: fill-box;
+    transform-origin: bottom center;
+    animation: sway 4.6s ease-in-out infinite;
+  }
+  .stem.s1{ animation-delay: 0s; }
+  .stem.s2{ animation-delay: 0.4s; }
+  .stem.s3{ animation-delay: 0.8s; }
+  .stem.s4{ animation-delay: 1.2s; }
+  .stem.s5{ animation-delay: 0.2s; }
+  .stem.s6{ animation-delay: 0.9s; }
+
+  @keyframes sway{
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(1deg); }
+  }
+
+  .tulip-sway{
+    transform-origin: 0px 0px;
+    animation: tulipSway 4s ease-in-out infinite;
+  }
+  .tulip-sway.t1{ animation-duration: 4.2s; animation-delay: 0s; }
+  .tulip-sway.t2{ animation-duration: 3.8s; animation-delay: 0.5s; }
+  .tulip-sway.t3{ animation-duration: 4.5s; animation-delay: 0.2s; }
+  .tulip-sway.t4{ animation-duration: 4s; animation-delay: 0.8s; }
+  .tulip-sway.t5{ animation-duration: 4.3s; animation-delay: 0.3s; }
+  .tulip-sway.t6{ animation-duration: 3.9s; animation-delay: 0.6s; }
+
+  @keyframes tulipSway{
+    0%, 100% { transform: rotate(-3deg) translateY(0); }
+    50% { transform: rotate(3deg) translateY(-2px); }
+  }
+
+  .glow-orb{
+    position: absolute;
+    bottom: 12%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, rgba(180,120,230,0.35) 0%, rgba(180,120,230,0) 70%);
+    filter: blur(10px);
+    z-index: 1;
+    animation: glowPulse 3.5s ease-in-out infinite;
+  }
+  @keyframes glowPulse{
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+
+  .signature{
+    position: absolute;
+    bottom: 3%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(243, 233, 255, 0.55);
+    font-size: 12px;
+    letter-spacing: 1px;
+    font-style: italic;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 5.5s;
+    z-index: 5;
+  }
+  @keyframes fadeIn{ to{ opacity: 1; } }
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+  <div class="glow-orb"></div>
+
+  <div class="message-wrap" id="messageWrap"></div>
+
+  <svg class="bouquet-wrap" id="bouquet" viewBox="0 0 300 320" xmlns="http://www.w3.org/2000/svg">
+
+    <defs>
+      <linearGradient id="petalGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#e6d3fb"/>
+        <stop offset="55%" stop-color="var(--tulip-mid)"/>
+        <stop offset="100%" stop-color="var(--tulip-deep)"/>
+      </linearGradient>
+      <linearGradient id="paperGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="var(--paper)"/>
+        <stop offset="100%" stop-color="var(--paper-dark)"/>
+      </linearGradient>
+      <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="var(--leaf)"/>
+        <stop offset="100%" stop-color="var(--leaf-dark)"/>
+      </linearGradient>
+    </defs>
+
+    <!-- stems, fanning from a single tied point -->
+    <g stroke="var(--leaf-dark)" stroke-width="3" fill="none" stroke-linecap="round">
+      <path class="stem s4" d="M150,300 C142,250 108,215 88,170"/>
+      <path class="stem s1" d="M150,300 C146,245 128,205 116,150"/>
+      <path class="stem s2" d="M150,300 C150,240 150,195 150,134"/>
+      <path class="stem s3" d="M150,300 C154,245 172,205 184,150"/>
+      <path class="stem s5" d="M150,300 C158,250 192,215 212,170"/>
+      <path class="stem s6" d="M150,300 C150,255 150,225 150,207"/>
+    </g>
+
+    <!-- tall leaves rising up between the stems, behind the flowers -->
+    <path fill="url(#leafGrad)" d="M128,300 C108,255 96,205 90,155 C112,176 128,226 133,271 Z"/>
+    <path fill="url(#leafGrad)" d="M172,300 C192,255 204,205 210,155 C188,176 172,226 167,271 Z"/>
+
+    <!-- tulip flowers: base of each flower (local 0,0) sits exactly on its stem tip -->
+    <g transform="translate(88,170) scale(0.82)">
+      <g class="tulip-sway t4">
+        <g transform="rotate(-22)"><path fill="var(--tulip-deep)" d="M0,0 C-10,-5 -13,-13 -13,-21 C-13,-30 -8,-38 0,-43 C8,-38 13,-30 13,-21 C13,-13 10,-5 0,0 Z"/></g>
+        <g transform="rotate(22)"><path fill="var(--tulip-deep)" d="M0,0 C-10,-5 -13,-13 -13,-21 C-13,-30 -8,-38 0,-43 C8,-38 13,-30 13,-21 C13,-13 10,-5 0,0 Z"/></g>
+        <path fill="url(#petalGrad)" d="M0,0 C-11,-6 -14,-15 -14,-24 C-14,-33 -9,-41 0,-47 C9,-41 14,-33 14,-24 C14,-15 11,-6 0,0 Z"/>
+        <path fill="var(--tulip-light)" opacity="0.55" d="M0,-3 C-2,-8 -3,-15 -3,-22 C-3,-30 -1,-37 0,-42 C1,-37 3,-30 3,-22 C3,-15 2,-8 0,-3 Z"/>
+      </g>
+    </g>
+    <g transform="translate(116,150) scale(0.92)">
+      <g class="tulip-sway t1">
+        <g transform="rotate(-22)"><path fill="var(--tulip-deep)" d="M0,0 C-10,-5 -13,-13 -13,-21 C-13,-30 -8,-38 0,-43 C8,-38 13,-30 13,-21 C13,-13 10,-5 0,0 Z"/></g>
+        <g transform="rotate(22)"><path fill="var(--tulip-deep)" d="M0,0 C-10,-5 -13,-13 -13,-21 C-13,-30 -8,-38 0,-43 C8,-38 13,-30 13,-21 C13,-13 10,-5 0,0 Z"/></g>
+        <path fill="url(#petalGrad)" d="M0,0 C-11,-6 -14,-15 -14,-24 C-14,-33 -9,-41 0,-47 C9,-41 14,-33 14,-24 C14,-15 11,-6 0,0 Z"/>
+        <path fill="var(--tulip-light)" opacity="0.55" d="M0,-3 C-2,-8 -3,-15 -3,-22 C-3,-30 -1,-37 0,-42 C1,-37 3,-30 3,-22 C3,-15 2,-8 0,-3 Z"/>
+      </g>
+    </g>
+    <g transform="translate(150,134) scale(1)">
+      <g class="tulip-sway t2">
+        <g transform="rotate(-22)"><path fill="var(--tulip-deep)" d="M0,0 C-10,-5 -13,-13 -13,-21 C-13,-30 -8,-38 0,-43 C8,-38 13,-30 13,-21 C13,-13 10,-5 0,0 Z"/></g>
+        <g transform="rotate(22)"><path fill="var(--tulip-deep)" d="M0,0 C-10,-5 -13,-13 -13,-21 C-13,-30 -8,-38 0,-43 C8,-38 13,-30 13,-21 C13,-13 10,-5 0,0 Z"/></g>
+        <path fill="url(#petalGrad)" d="M0,0 C-11,-6 -14,-15 -14,-24 C-14,-33 -9,-41 0,-47 C9,-41 14,-33 14,-24 C14,-15 11,-6 0,0 Z"/>
+        <path fill="var(--tulip-light)" opacity="0.55" d="M0,-3 C-2,-8 -3,-15 -3,-22 C-3,-30 -1,-37 0,-42 C1,-37 3,-30 3,-22 C3,-15 2,-8 0,-3 Z"/>
+      </g>
+    </g>
+    <g transform="translate(184,150) scale(0.92)">
+      <g class="tulip-sway t3">
+        <g transform="rotate(-22)"><path fill="var(--tulip-deep)" d="M0,0 C-10,-5 -13,-13 -13,-21 C-13,-30 -8,-38 0,-43 C8,-38 13,-30 13,-21 C13,-13 10,-5 0,0 Z"/></g>
+        <g transform="rotate(22)"><path fill="var(--tulip-deep)" d="M0,0 C-10,-5 -13,-13 -13,-21 C-13,-30 -8,-38 0,-43 C8,-38 13,-30 13,-21 C13,-13 10,-5 0,0 Z"/></g>
+        <path fill="url(#petalGrad)" d="M0,0 C-11,-6 -14,-15 -14,-24 C-14,-33 -9,-41 0,-47 C9,-41 14,-33 14,-24 C14,-15 11,-6 0,0 Z"/>
+        <path fill="var(--tulip-light)" opacity="0.55" d="M0,-3 C-2,-8 -3,-15 -3,-22 C-3,-30 -1,-37 0,-42 C1,-37 3,-30 3,-22 C3,-15 2,-8 0,-3 Z"/>
+      </g>
+    </g>
+    <g transform="translate(212,170) scale(0.82)">
+      <g class="tulip-sway t5">
+        <g transform="rotate(-22)"><path fill="var(--tulip-deep)" d="M0,0 C-10,-5 -13,-13 -13,-21 C-13,-30 -8,-38 0,-43 C8,-38 13,-30 13,-21 C13,-13 10,-5 0,0 Z"/></g>
+        <g transform="rotate(22)"><path fill="var(--tulip-deep)" d="M0,0 C-10,-5 -13,-13 -13,-21 C-13,-30 -8,-38 0,-43 C8,-38 13,-30 13,-21 C13,-13 10,-5 0,0 Z"/></g>
+        <path fill="url(#petalGrad)" d="M0,0 C-11,-6 -14,-15 -14,-24 C-14,-33 -9,-41 0,-47 C9,-41 14,-33 14,-24 C14,-15 11,-6 0,0 Z"/>
+        <path fill="var(--tulip-light)" opacity="0.55" d="M0,-3 C-2,-8 -3,-15 -3,-22 C-3,-30 -1,-37 0,-42 C1,-37 3,-30 3,-22 C3,-15 2,-8 0,-3 Z"/>
+      </g>
+    </g>
+    <g transform="translate(150,207) scale(0.72)">
+      <g class="tulip-sway t6">
+        <g transform="rotate(-22)"><path fill="var(--tulip-deep)" d="M0,0 C-10,-5 -13,-13 -13,-21 C-13,-30 -8,-38 0,-43 C8,-38 13,-30 13,-21 C13,-13 10,-5 0,0 Z"/></g>
+        <g transform="rotate(22)"><path fill="var(--tulip-deep)" d="M0,0 C-10,-5 -13,-13 -13,-21 C-13,-30 -8,-38 0,-43 C8,-38 13,-30 13,-21 C13,-13 10,-5 0,0 Z"/></g>
+        <path fill="url(#petalGrad)" d="M0,0 C-11,-6 -14,-15 -14,-24 C-14,-33 -9,-41 0,-47 C9,-41 14,-33 14,-24 C14,-15 11,-6 0,0 Z"/>
+        <path fill="var(--tulip-light)" opacity="0.55" d="M0,-3 C-2,-8 -3,-15 -3,-22 C-3,-30 -1,-37 0,-42 C1,-37 3,-30 3,-22 C3,-15 2,-8 0,-3 Z"/>
+      </g>
+    </g>
+
+    <!-- wrapping paper cone with a ruffled top edge and folded panels for volume -->
+    <path fill="url(#paperGrad)" d="M65,196 C88,180 108,200 128,184 C142,174 158,174 172,184 C192,200 212,180 235,196 L150,302 Z"/>
+    <path fill="#000" opacity="0.10" d="M100,190 L128,184 L150,302 L118,240 Z"/>
+    <path fill="#fff" opacity="0.12" d="M150,178 L172,184 L150,302 L136,230 Z"/>
+    <path fill="#000" opacity="0.08" d="M200,190 L235,196 L150,302 L182,235 Z"/>
+    <path fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1" d="M150,178 L150,302 M100,190 L150,302 M200,190 L150,302 M65,196 L150,302 M235,196 L150,302"/>
+
+    <!-- short base leaves in front of the paper mouth -->
+    <path fill="url(#leafGrad)" d="M150,255 C122,250 100,232 92,206 C122,208 146,224 150,255 Z"/>
+    <path fill="url(#leafGrad)" d="M150,268 C178,260 202,240 210,210 C180,215 160,234 150,268 Z"/>
+    <path fill="url(#leafGrad)" d="M150,240 C133,226 127,204 132,186 C149,196 154,218 150,240 Z"/>
+
+    <!-- ribbon bow, near the tied point at the base of the cone -->
+    <path fill="none" stroke="var(--ribbon)" stroke-width="6" stroke-linecap="round" d="M115,278 C130,290 170,290 185,278"/>
+    <path fill="var(--ribbon)" d="M150,274 L136,292 L150,285 L164,292 Z"/>
+    <circle cx="150" cy="275" r="5" fill="var(--ribbon)"/>
+  </svg>
+
+  <div class="signature">De Adrián, para Andrea 🌷</div>
+</div>
+
+<script>
+(function(){
+  // ---- generate stars ----
+  const stage = document.getElementById('stage');
+  const starCount = 90;
+  for(let i=0;i<starCount;i++){
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random()*2 + 0.6;
+    s.style.width = size+'px';
+    s.style.height = size+'px';
+    s.style.left = Math.random()*100+'%';
+    s.style.top = Math.random()*70+'%';
+    s.style.animationDelay = (Math.random()*3)+'s';
+    stage.appendChild(s);
+  }
+
+  // shooting stars, staggered
+  for(let i=0;i<2;i++){
+    const sh = document.createElement('div');
+    sh.className = 'shooting-star';
+    sh.style.top = (10 + Math.random()*25)+'%';
+    sh.style.left = (55 + Math.random()*30)+'%';
+    sh.style.animationDelay = (2 + i*3.2)+'s';
+    stage.appendChild(sh);
+  }
+
+  // ---- typewriter message ----
+  const lines = [
+    "Para la princesa que estoy conociendo 💜",
+    "Decidí hacerte este detalle porque sé que te gustan los tulipanes.",
+    "Tus ojos tienen galaxias enteras, tu piel morena y tus labios hermosos no dejan de enamorarme.",
+    "Como estos tulipanes, cada día que te conozco descubro algo más bonito en ti."
+  ];
+
+  const wrap = document.getElementById('messageWrap');
+  let lineIndex = 0;
+
+  function typeLine(text, el, cb){
+    let i = 0;
+    const speed = 32;
+    function step(){
+      if(i <= text.length){
+        el.textContent = text.slice(0, i);
+        i++;
+        setTimeout(step, speed);
+      } else {
+        cb();
+      }
+    }
+    step();
+  }
+
+  function nextLine(){
+    if(lineIndex >= lines.length) return;
+
+    const p = document.createElement('p');
+    p.className = 'message-line';
+    p.style.opacity = 1;
+    const cursor = document.createElement('span');
+    cursor.className = 'cursor';
+    wrap.appendChild(p);
+    p.appendChild(cursor);
+
+    const textNode = document.createTextNode('');
+    p.insertBefore(textNode, cursor);
+
+    let i = 0;
+    const text = lines[lineIndex];
+    const speed = 30;
+    function step(){
+      if(i <= text.length){
+        textNode.textContent = text.slice(0, i);
+        i++;
+        setTimeout(step, speed);
+      } else {
+        cursor.remove();
+        lineIndex++;
+        setTimeout(nextLine, 550);
+      }
+    }
+    step();
+  }
+
+  setTimeout(nextLine, 600);
+})();
+</script>
+
+</body>
+</html>
