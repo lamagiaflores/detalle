@@ -35,6 +35,13 @@
     min-height: 560px;
     background: radial-gradient(ellipse at 50% 20%, var(--sky-bottom) 0%, var(--sky-top) 65%);
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3vh;
+    padding: 5vh 16px 4vh;
+    box-sizing: border-box;
   }
 
   /* stars */
@@ -78,14 +85,11 @@
 
   /* message */
   .message-wrap{
-    position: absolute;
-    top: 6%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 86%;
+    width: 100%;
     max-width: 480px;
     text-align: center;
     z-index: 5;
+    flex-shrink: 0;
   }
 
   .message-line{
@@ -124,29 +128,36 @@
   }
 
   /* bouquet */
+  .bouquet-area{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 1;
+    min-height: 0;
+  }
+
   .bouquet-wrap{
-    position: absolute;
-    bottom: 9%;
-    left: 50%;
-    transform: translateX(-50%) translateY(40px) scale(0.78);
-    width: min(90%, 380px);
+    display: block;
+    width: min(78vw, 400px);
+    max-height: 42vh;
     opacity: 0;
     filter: drop-shadow(0 -10px 60px rgba(180, 130, 230, 0.35));
     animation: riseIn 1.6s ease-out forwards;
     animation-delay: 0.4s;
+    transform: translateY(30px) scale(0.8);
   }
 
   @keyframes riseIn{
     to{
       opacity: 1;
-      transform: translateX(-50%) translateY(0) scale(1);
+      transform: translateY(0) scale(1);
     }
   }
 
   @media (max-width: 480px){
-    .message-wrap{ top: 4%; }
-    .bouquet-wrap{ width: min(98%, 420px); bottom: 10%; }
-    .signature{ font-size: 15px; bottom: 2%; }
+    .message-line{ font-size: clamp(16px, 5vw, 21px); }
+    .bouquet-wrap{ width: min(86vw, 420px); }
   }
 
   .stem{
@@ -184,9 +195,9 @@
 
   .glow-orb{
     position: absolute;
-    bottom: 12%;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     width: 220px;
     height: 220px;
     background: radial-gradient(circle, rgba(180,120,230,0.35) 0%, rgba(180,120,230,0) 70%);
@@ -200,18 +211,16 @@
   }
 
   .signature{
-    position: absolute;
-    bottom: 3%;
-    left: 50%;
-    transform: translateX(-50%);
     color: rgba(243, 233, 255, 0.55);
-    font-size: 14px;
+    font-size: 15px;
     letter-spacing: 1px;
     font-style: italic;
+    text-align: center;
     opacity: 0;
     animation: fadeIn 1s ease forwards;
     animation-delay: 5.5s;
     z-index: 5;
+    flex-shrink: 0;
   }
   @keyframes fadeIn{ to{ opacity: 1; } }
 </style>
@@ -219,10 +228,11 @@
 <body>
 
 <div class="stage" id="stage">
-  <div class="glow-orb"></div>
 
   <div class="message-wrap" id="messageWrap"></div>
 
+  <div class="bouquet-area">
+  <div class="glow-orb"></div>
   <svg class="bouquet-wrap" id="bouquet" viewBox="0 0 300 320" xmlns="http://www.w3.org/2000/svg">
 
     <defs>
@@ -322,6 +332,7 @@
     <path fill="var(--ribbon)" d="M150,274 L136,292 L150,285 L164,292 Z"/>
     <circle cx="150" cy="275" r="5" fill="var(--ribbon)"/>
   </svg>
+  </div>
 
   <div class="signature">De Adrián, para Andrea 🌷</div>
 </div>
